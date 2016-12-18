@@ -1,16 +1,14 @@
-'''
-Created on 18 Dec 2016
-
-@author: davebarnett
-'''
 import subprocess
 
 hostname = "google.co.uk"
-
-# Mac Specific
-proc = subprocess.Popen("ping -c 1 " + hostname, stdout=subprocess.PIPE, shell=True)
+proc = subprocess.Popen("ping " + hostname, stdout=subprocess.PIPE, shell=True)
 (out, err) = proc.communicate()
-
-print "type:", type(out)
-
-print "program output:", out
+if out[0:6] == "Ping r":
+    print("Fail")
+else:
+    print("Success")
+    parse = out.split("time=")
+    time = parse[1].split("ms")
+    print("time : "+time[0])
+print(out)
+print(out[0:6])
